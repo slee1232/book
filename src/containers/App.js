@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Book from './Book/Book';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Book from '../components/Books/Book/Book';
 
 class App extends Component {
   state = {
@@ -54,14 +53,12 @@ class App extends Component {
       books = (
           <div>
             {this.state.books.map((book,index) => {
-              return <ErrorBoundary key={book.id}>
-                <Book 
+              return <Book key={book.id}
               click={() => this.deleteBookHandler(index)}
               title={book.title} 
               totalPages={book.totalPages} 
               currentPage={book.currentPage}  
               changed={(event) => this.titleChangedHandler(event, book.id)} />
-              </ErrorBoundary>
             })}
           </div>
       );
