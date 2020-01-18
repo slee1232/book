@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Book from '../components/Books/Book/Book';
+import Books from '../components/Books/Books';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -46,41 +47,20 @@ class App extends Component {
   render() {
 
     let books = null;
-    let btnClass = '';
-
 
     if (this.state.showBooks) {
-      books = (
-          <div>
-            {this.state.books.map((book,index) => {
-              return <Book key={book.id}
-              click={() => this.deleteBookHandler(index)}
-              title={book.title} 
-              totalPages={book.totalPages} 
-              currentPage={book.currentPage}  
-              changed={(event) => this.titleChangedHandler(event, book.id)} />
-            })}
-          </div>
-      );
-      
-      btnClass = classes.Red;
-    }
-
-    const assignedClasses = [];
-    if (this.state.books.length <= 2) {
-      assignedClasses.push(classes.red); //classes = ['red']
-    }
-    if (this.state.books.length <=1) {
-      assignedClasses.push(classes.bold); //classes = ['red', 'bold']
+      books = <Books 
+              books={this.state.books}
+              clicked={this.deleteBookHandler}
+              changed={this.titleChangedHandler} />;
     }
 
     return (    
       <div className={classes.App}>
-        <h1>Hi, I am a React App</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button className={btnClass} onClick={this.toggleBooksHandler}>
-          Update Books
-         </button>
+        <Cockpit 
+          showBooks={this.state.showBooks}
+          books={this.state.books}
+          clicked={this.toggleBooksHandler}/>
         {books}
       </div>
     );
