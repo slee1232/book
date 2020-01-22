@@ -4,6 +4,12 @@ import Books from '../components/Books/Books';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+constructor(props) {
+  super(props);
+  console.log('[App.js] constructor');
+
+}
+
   state = {
     books: [
       {id: 'asew1', title: 'Harry Potter', totalPages: '123', currentPage:'50'},
@@ -12,6 +18,19 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showBooks: false
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps',props);
+    return state;
+  }
+
+  // componentWillMount() {
+  //   console.log('[App.js] componentWillMount');
+  // }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
   }
 
   titleChangedHandler = (event, id) => {
@@ -45,7 +64,7 @@ class App extends Component {
   }
 
   render() {
-
+    console.log('[App.js] render')
     let books = null;
 
     if (this.state.showBooks) {
@@ -58,6 +77,7 @@ class App extends Component {
     return (    
       <div className={classes.App}>
         <Cockpit 
+          title={this.props.appTitle}
           showBooks={this.state.showBooks}
           books={this.state.books}
           clicked={this.toggleBooksHandler}/>
