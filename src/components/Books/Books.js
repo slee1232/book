@@ -14,10 +14,12 @@ class Books extends Component {
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('[Books.js] getSnapshotBeforeUpdate');
+    return {message: 'Snapshot!' };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('[Books.js] componentDidUpdate');
+    console.log(snapshot);
   }
 
   render() {
