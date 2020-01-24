@@ -17,7 +17,8 @@ constructor(props) {
       {id: 'asdartw1', title: 'How to Win Friends & Influence People', totalPages: '415', currentPage:'415'}
     ],
     otherState: 'some other value',
-    showBooks: false
+    showBooks: false,
+    showCockpit: true
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -85,11 +86,17 @@ constructor(props) {
 
     return (    
       <div className={classes.App}>
-        <Cockpit 
+        <button onClick={() => {
+            this.setState({showCockpit: false});
+          }}
+          >
+            Remove Cockpit
+          </button>
+          {this.state.showCockpit ? <Cockpit 
           title={this.props.appTitle}
           showBooks={this.state.showBooks}
-          books={this.state.books}
-          clicked={this.toggleBooksHandler}/>
+          booksLength={this.state.books.length}
+          clicked={this.toggleBooksHandler}/> : null }
         {books}
       </div>
     );
