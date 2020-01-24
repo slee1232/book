@@ -1,7 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
+    //useEffect always run first time initially by default
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        // Http request...
+        setTimeout(() => {
+            alert('Saved data to cloud!');
+        }, 1000)
+    }, []);
+    
     const assignedClasses = [];
     let btnClass ='';
     if (props.showBooks) {
