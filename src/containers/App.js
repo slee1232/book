@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Books from '../components/Books/Books';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/withClass';
+import Auxillary from '../hoc/Auxilliary';
 
 class App extends Component {
 constructor(props) {
@@ -18,7 +20,8 @@ constructor(props) {
     ],
     otherState: 'some other value',
     showBooks: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -57,8 +60,16 @@ constructor(props) {
     const books = [...this.state.books];
     books[bookIndex] = book;
 
-    this.setState({books: books})
-  }
+    //prevState holds the vbalue of state BEFORE the setState is called by React
+    //setState does batching, it is important to know which previous state we are working on
+    // if multiple setStates are called, then it may lead to incorrect state being set
+    this.setState((prevState, props) => {
+      return {
+        books: books,
+        changeCounter: prevState.changeCounter+1
+      };
+      });
+  };
 
   deleteBookHandler = (bookIndex) => {
     //const books = this.state.books.slice();
@@ -85,7 +96,7 @@ constructor(props) {
     }
 
     return (    
-      <div className={classes.App}>
+      <Auxillary>
         <button onClick={() => {
             this.setState({showCockpit: false});
           }}
@@ -98,10 +109,10 @@ constructor(props) {
           booksLength={this.state.books.length}
           clicked={this.toggleBooksHandler}/> : null }
         {books}
-      </div>
+      </Auxillary>
     );
     //return React.createElement('div',{className:'App'}, React.createElement('h1',null,'Hi, I\'m a React App!!!'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

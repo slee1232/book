@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import classes from './Book.css';
+import withClass from '../../../hoc/withClass';
 
 
 class Book extends Component {
@@ -15,4 +16,4 @@ class Book extends Component {
     }
 };
 
-export default Book;
+export default withClass(Book,classes.Book);
